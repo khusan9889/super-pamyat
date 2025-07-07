@@ -70,7 +70,7 @@ export default function SuperPamyatLanding() {
             type="submit"
             className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-4 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
           >
-            Ariza qoldiring
+            Оставить заявку
           </Button>
         </form>
       </CardContent>
@@ -109,10 +109,11 @@ export default function SuperPamyatLanding() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-800 leading-tight">
-                Birinchi haftadanoq xotirani yaxshilaydi va miya faoliyatini qo’llaydi
+                Улучшение памяти и работы мозга уже с первой недели
               </h1>
               <p className="text-gray-700 text-xl lg:text-2xl leading-relaxed">
-                Miyada qon aylanishini tiklovachi,insult, infarni va yoshga doir o’zgarishlardan profilaktika qiliuvchi o’simliklardan tayyorlangan kompleks
+                Комплекс на травах для восстановления мозгового кровообращения, профилактики инсульта, инфарктов и
+                возрастных изменений памяти
               </p>
               <div className="pt-4">
                 <CountdownTimer />
@@ -151,7 +152,7 @@ export default function SuperPamyatLanding() {
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-16">
-            “Super xotira” sizning sog’lig’ingizga nima uchun foydali?
+            Чем полезен «Супер память» для вашего здоровья
           </h2>
           <div className="grid sm:grid-cols-2 gap-6 lg:gap-8">
             <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -160,10 +161,10 @@ export default function SuperPamyatLanding() {
                   <div className="w-16 h-16 lg:w-20 lg:h-20 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <Brain className="h-8 w-8 lg:h-10 lg:w-10 text-blue-600" />
                   </div>
-                  <h3 className="text-xl lg:text-2xl font-semibold text-center sm:text-left">Miya faoliyatini yaxshilaydi</h3>
+                  <h3 className="text-xl lg:text-2xl font-semibold text-center sm:text-left">Улучшает работу мозга</h3>
                 </div>
                 <p className="text-gray-600 text-lg text-center sm:text-left">
-                  Xotira zonalarini , fikrlash va e’tiborni aktivlashtiradi
+                  Активизирует зоны памяти, мышления и внимания
                 </p>
               </CardContent>
             </Card>
@@ -175,11 +176,11 @@ export default function SuperPamyatLanding() {
                     <Heart className="h-8 w-8 lg:h-10 lg:w-10 text-red-600" />
                   </div>
                   <h3 className="text-xl lg:text-2xl font-semibold text-center sm:text-left">
-                    Yurak va qon tomirlarni mustahkamlaydi
+                    Укрепляет сердце и сосуды
                   </h3>
                 </div>
                 <p className="text-gray-600 text-lg text-center sm:text-left">
-                  Qon bosimini pasaytiradi va tomirlar tozaligini saqlaydi
+                  Снижает артериальное давление и поддерживает чистоту сосудов
                 </p>
               </CardContent>
             </Card>
@@ -191,10 +192,10 @@ export default function SuperPamyatLanding() {
                     <Shield className="h-8 w-8 lg:h-10 lg:w-10 text-green-600" />
                   </div>
                   <h3 className="text-xl lg:text-2xl font-semibold text-center sm:text-left">
-                    Tromblar hosil bo‘lishining oldini oladi
+                    Предотвращает образование тромбов
                   </h3>
                 </div>
-                <p className="text-gray-600 text-lg text-center sm:text-left">Qonni suyultiradi, oquvchanligini yaxshilaydi</p>
+                <p className="text-gray-600 text-lg text-center sm:text-left">Разжижает кровь, улучшает её текучесть</p>
               </CardContent>
             </Card>
 
@@ -204,10 +205,10 @@ export default function SuperPamyatLanding() {
                   <div className="w-16 h-16 lg:w-20 lg:h-20 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <Zap className="h-8 w-8 lg:h-10 lg:w-10 text-purple-600" />
                   </div>
-                  <h3 className="text-xl lg:text-2xl font-semibold text-center sm:text-left">Miya faoliyatini yaxshilaydi</h3>
+                  <h3 className="text-xl lg:text-2xl font-semibold text-center sm:text-left">Улучшает работу мозга</h3>
                 </div>
                 <p className="text-gray-600 text-lg text-center sm:text-left">
-                  Xotira, fikrlash va diqqat sohalarini faollashtiradi
+                  Активизирует зоны памяти, мышления и внимания
                 </p>
               </CardContent>
             </Card>
@@ -218,15 +219,15 @@ export default function SuperPamyatLanding() {
       {/* Ingredients Section */}
       <section className="py-16 lg:py-24 bg-gradient-to-br from-cyan-100 to-blue-100">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-16">Tarkib va xususiyatlari</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-16">Состав и свойства</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {[
-              { name: "Toloknyanka o‘ti", benefit: "Suyuqlikni yumshoq chiqarish orqali bosimni pasaytiradi. Qon filtratsiyasi va miya oziqlanishini yaxshilaydi" }, 
-              { name: "Do‘lana gullari", benefit: "Yurak urishi va miokardni qo‘llab-quvvatlash. Koronar va miya qon aylanishini yaxshilaydi. Taxikardiya xurujlari chastotasini kamaytiradi, tomirlar spazmini bartaraf etadi" },
-              { name: "Ginkgo biloba barglari", benefit: "Miyaga qon oqimini rag‘batlantiradi. Diqqat, fikrlash tezligi va qisqa muddatli xotirani yaxshilaydi. Antioksidant va tomirlarga qarshi (tromblarga qarshi) ta’sirga ega." },
-              { name: "Dalachoy o‘ti", benefit: "Yumshoq tabiiy antidepressant. Xavotirni kamaytiradi va hissiy muhitni yaxshilaydi. Diqqatni jamlashga va aqliy charchoq bilan kurashishga yordam beradi" },
-              { name: "Rozmarin o‘ti", benefit: "Miya faoliyati va diqqatni faollashtiradi. Idrokni o‘tkirlashtiradi va reaksiyani tezlashtiradi. Ko‘nikishsiz tabiiy nootrop ta’sir" },
-              { name: "Pushti radiola ildizi", benefit: "Adaptogen - miyaning stresslarga chidamliligini oshiradi. Hujayra quvvatini oshiradi. Miyani kislorod tanqisligidan himoya qiladi" },
+              { name: "Трава толокнянки", benefit: "Улучшает фильтрацию крови и снижает давление" },
+              { name: "Цветки боярышника", benefit: "Укрепляют сердечную мышцу, улучшают ритм" },
+              { name: "Трава толокнянки", benefit: "Улучшает фильтрацию крови и снижает давление" },
+              { name: "Трава зверобоя", benefit: "Укрепляют сердечную мышцу, улучшают ритм" },
+              { name: "Трава розмарина", benefit: "Улучшает фильтрацию крови и снижает давление" },
+              { name: "Корень радиолы розовой", benefit: "Укрепляют сердечную мышцу, улучшают ритм" },
             ].map((ingredient, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
                 <CardContent className="p-6 lg:p-8">
@@ -245,15 +246,15 @@ export default function SuperPamyatLanding() {
       {/* Target Audience Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">‘’ Super xotira “ kimlar uchun</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Для кого подходит «Супер Память»</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: "Keksalarda", description: "xotira pasayganda, tez-tez bosh aylanishida, quloq shang‘illashida" },
-              { title: "Yurak xuruji yoki insultni boshdan kechirganlarga", description: "tiklanish uchun" },
-              { title: "Gipertoniya bilan og‘rigan odamlar uchun", description: "qon bosimini normallashtirish" },
-              { title: "Aqliy mehnat bilan shug‘ullanuvchilar uchun", description: "aniqlik va diqqatni jamlash uchun" },
-              { title: "40 yoshdan oshgan barchaga", description: "qon tomir kasalliklarining oldini olish uchun" },
-              { title: "Bolalar va o‘smirlar uchun", description: "xotira va diqqatni yaxshilash uchun" },
+              { title: "Пожилым людям", description: "при снижении памяти, частых головокружениях, шуме в ушах" },
+              { title: "Тем, кто перенёс инфарkt или инсульт", description: "для восстановления" },
+              { title: "Людям с гипертонией", description: "для нормализации давления" },
+              { title: "Работающим с умственными нагрузками", description: "для ясности и концентрации" },
+              { title: "Всем после 40 лет", description: "для профилактики сосудистых нарушений" },
+              { title: "Для детей и подростков", description: "для улучшения памяти и внимания" },
             ].map((item, index) => (
               <Card key={index}>
                 <CardContent className="p-6 text-center">
@@ -295,24 +296,24 @@ export default function SuperPamyatLanding() {
       {/* Testimonials Section */}
       <section className="py-16 bg-gradient-to-br from-cyan-100 to-blue-100">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Mijozlarimizning fikrlari</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Отзывы наших клиентов</h2>
           <div className="space-y-6">
             {[
               {
-                name: "Bahora - 68 yosh",
-                text: "3 haftalik qabuldan so‘ng kalitlarni qayerga qo‘yganimni yana eslay boshladim va boshimdagi shovqindan uyg‘onmay qo‘ydim. Bosim barqarorlashdi!",
+                name: "Вahora - 68 лет",
+                text: "После 3 недель приема я снова начала помнить, где положила ключи и перестала просыпаться от шума в голове. Давление стабилизировалось!",
               },
               {
-                name: "Bekzod - 55 yoshda",
-                text: "Ko‘p yillardan beri gipertoniyaga chalinganman, buning ustiga IT sohasida ishlayman - kechga borib boshim aylanmay qoldi. Super xotira haqiqatan ham miyani jonlantirdi.",
+                name: "Bekzod - 55 лет",
+                text: "Много лет гипертония, плюс работаю в IT — к вечеру голова отказывалась соображать. Super Pamyat реально оживил мозг.",
               },
               {
-                name: "Gulnoza - 73 yoshda",
-                text: "Shifokor aytdi - xotira endi qaytib kelmaydi. Men esa kursdan o‘tdim va kitoblarni takrorlamasdan o‘qiyapman. Rahmat sizga!",
+                name: "Gulnoza - 73 года",
+                text: "Врач сказал — память уже не вернётся. А я прошла курс и читаю книги без повторов. Спасибо вам!",
               },
               {
-                name: "Sherzod - 33 yosh",
-                text: "Otamga sotib oldim 75 yosh - ilgari ismlarni unutib qo‘yardim, suhbatlarda o‘zimni yo‘qotib qo‘yardim. Bir oydan keyin hazillashadigan, eski hikoyalarni eslaydigan, hatto krossvordlarni yechadigan bo‘lib qoldi.",
+                name: "Sherzod - 33 года",
+                text: "Купил для отца 75 лет — раньше забывал имена, терялся в разговорах. Через месяц стал шутить, вспоминать старые истории и даже разгадывать кроссворды.",
               },
             ].map((testimonial, index) => (
               <Card key={index} className="bg-white/80">
@@ -340,30 +341,31 @@ export default function SuperPamyatLanding() {
       <section className="py-16 bg-white">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-            Nima uchun “Super xotira” haqiqatdan ham yordam beradi
+            Почему Super Pamyat действительно работает
           </h2>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
-                <p className="text-gray-700">Komponentlarning klinik tadqiqotlariga asoslangan</p>
+                <p className="text-gray-700">Основано на клинических исследованиях компонентов</p>
               </div>
               <div className="flex items-center gap-4">
                 <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
                 <p className="text-gray-700">
-                  Xalqaro fitoterapiya assotsiatsiyalari tomonidan tasdiqlangan o‘simliklardan foydalaniladi.
+                  Используются растения, одобренные международными ассоциациями фитотерапии
                 </p>
               </div>
               <div className="flex items-center gap-4">
                 <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
-                <p className="text-gray-700">Uzoq muddat qabul qilinganda xavfsiz</p>
+                <p className="text-gray-700">Основано на клинических исследованиях при длительном приёме</p>
               </div>
               <div className="flex items-center gap-4">
                 <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
-                <p className="text-gray-700">Formula nevrologlar va kardiologlar ishtirokida ishlab chiqilgan.</p>
+                <p className="text-gray-700">Формула разрабатывалась с участием неврологов и кардиологов</p>
               </div>
               <p className="text-gray-600 text-sm mt-6">
-                Formula yoshga bog‘liq kognitiv va qon tomir kasalliklarida samaradorligi isbotlangan o‘simlik ekstraktlarining klinik tadqiqotlari asosida ishlab chiqilgan.
+                Формула разработана на базе клинических исследований растительных экстрактов, доказавших эффективность
+                при возрастных когнитивных и сосудистых нарушениях.
               </p>
             </div>
             <div className="flex justify-center items-center gap-8">
@@ -389,14 +391,14 @@ export default function SuperPamyatLanding() {
       {/* Usage Conditions Section */}
       <section className="py-16 bg-gradient-to-br from-cyan-100 to-blue-100">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Qanday holatlarda qabul qilish tavsiya etiladi</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">В каких случаях стоит принимать</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { title: "Unutuvchanlik, parishonxotirlik, chalkash fikrlash", icon: "🧠" },
-              { title: "Yuqori bezovtalik va charchoq", icon: "😰" },
-              { title: "Ismlar, yuzlar, harakatlar uchun zaif xotira", icon: "🤔" },
-              { title: "Surunkali charchoq sindromi", icon: "😴" },
-              { title: "Insult va mikroibsulrdan keyin", icon: "❤️" },
+              { title: "Забывчивость, рассеянность, спутанность мыслей", icon: "🧠" },
+              { title: "Повышенная тревожность и утомляемость", icon: "😰" },
+              { title: "Слабая память на имена, лица, действия", icon: "🤔" },
+              { title: "Синдром хронической усталости", icon: "😴" },
+              { title: "После инсульта или микроинсульта", icon: "❤️" },
             ].map((condition, index) => (
               <Card key={index} className="text-center">
                 <CardContent className="p-6">
@@ -408,7 +410,6 @@ export default function SuperPamyatLanding() {
           </div>
         </div>
       </section>
-
 
       {/* Final CTA Section */}
       <section className="py-16 lg:py-24 bg-gradient-to-br from-sky-400 via-blue-400 to-cyan-300">
