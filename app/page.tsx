@@ -25,6 +25,10 @@ export default function SuperPamyatLanding() {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errors, setErrors] = useState({
+    name: "",
+    phone: "",
+  })
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -43,9 +47,109 @@ export default function SuperPamyatLanding() {
     return () => clearInterval(timer)
   }, [])
 
+  const formatPhoneNumber = (value: string) => {
+    // Remove all non-digit characters except +
+    const cleaned = value.replace(/[^\d+]/g, "")
+
+    // If it doesn't start with +998, add it
+    let formatted = cleaned
+    if (!formatted.startsWith("+998")) {
+      if (formatted.startsWith("998")) {
+        formatted = "+" + formatted
+      } else if (formatted.startsWith("+")) {
+        formatted = "+998" + formatted.slice(1)
+      } else {
+        formatted = "+998" + formatted
+      }
+    }
+
+    // Limit to 13 characters (+998xxxxxxxxx)
+    formatted = formatted.slice(0, 13)
+
+    // Format as +998 (XX) XXX-XX-XX
+    if (formatted.length >= 4) {
+      const countryCode = formatted.slice(0, 4) // +998
+      const rest = formatted.slice(4)
+
+      if (rest.length >= 2) {
+        const areaCode = rest.slice(0, 2)
+        const remaining = rest.slice(2)
+
+        if (remaining.length >= 3) {
+          const firstPart = remaining.slice(0, 3)
+          const secondPart = remaining.slice(3, 5)
+          const thirdPart = remaining.slice(5, 7)
+
+          formatted = `${countryCode} (${areaCode}) ${firstPart}`
+          if (secondPart) formatted += `-${secondPart}`
+          if (thirdPart) formatted += `-${thirdPart}`
+        } else if (remaining.length > 0) {
+          formatted = `${countryCode} (${areaCode}) ${remaining}`
+        } else {
+          formatted = `${countryCode} (${areaCode})`
+        }
+      } else if (rest.length > 0) {
+        formatted = `${countryCode} (${rest}`
+      }
+    }
+
+    return formatted
+  }
+
+  const validateForm = () => {
+    const newErrors = {
+      name: "",
+      phone: "",
+    }
+
+    // Validate name
+    if (!formData.name.trim()) {
+      newErrors.name = "Ism kiritish majburiy"
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Ism kamida 2 ta belgidan iborat bo'lishi kerak"
+    }
+
+    // Validate phone
+    const phoneDigits = formData.phone.replace(/[^\d]/g, "")
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Telefon raqam kiritish majburiy"
+    } else if (phoneDigits.length < 12) {
+      newErrors.phone = "To'liq telefon raqam kiriting"
+    } else if (!formData.phone.startsWith("+998")) {
+      newErrors.phone = "Telefon raqam +998 bilan boshlanishi kerak"
+    }
+
+    setErrors(newErrors)
+    return !newErrors.name && !newErrors.phone
+  }
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    // Allow only letters, spaces, and common name characters
+    const filteredValue = value.replace(/[^a-zA-ZА-Яа-яЁёўғҳқ\s'-]/g, "")
+    setFormData({ ...formData, name: filteredValue })
+
+    // Clear error when user starts typing
+    if (errors.name) {
+      setErrors({ ...errors, name: "" })
+    }
+  }
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    const formatted = formatPhoneNumber(value)
+    setFormData({ ...formData, phone: formatted })
+
+    // Clear error when user starts typing
+    if (errors.phone) {
+      setErrors({ ...errors, phone: "" })
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!formData.name.trim() || !formData.phone.trim()) {
+
+    if (!validateForm()) {
       return
     }
 
@@ -67,23 +171,27 @@ export default function SuperPamyatLanding() {
             <Input
               placeholder="Isminigiz"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="pl-12 py-4 text-lg border-2 focus:border-blue-500"
-              required
+              onChange={handleNameChange}
+              className={`pl-12 py-4 text-lg border-2 focus:border-blue-500 ${
+                errors.name ? "border-red-500 focus:border-red-500" : ""
+              }`}
               disabled={isSubmitting}
             />
+            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
           </div>
           <div className="relative">
             <Phone className="absolute left-3 top-4 h-5 w-5 text-gray-400" />
             <Input
-              placeholder="+998 -- -- --"
+              placeholder="+998 (XX) XXX-XX-XX"
               value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="pl-12 py-4 text-lg border-2 focus:border-blue-500"
+              onChange={handlePhoneChange}
+              className={`pl-12 py-4 text-lg border-2 focus:border-blue-500 ${
+                errors.phone ? "border-red-500 focus:border-red-500" : ""
+              }`}
               type="tel"
-              required
               disabled={isSubmitting}
             />
+            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
           </div>
           <Button
             type="submit"
