@@ -9,8 +9,10 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Phone, User, Clock, Star, CheckCircle, Shield, Heart, Brain, Zap } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export default function SuperPamyatLanding() {
+  const router = useRouter()
   const [timeLeft, setTimeLeft] = useState({
     hours: 7,
     minutes: 5,
@@ -21,6 +23,8 @@ export default function SuperPamyatLanding() {
     name: "",
     phone: "",
   })
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -39,9 +43,19 @@ export default function SuperPamyatLanding() {
     return () => clearInterval(timer)
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
+    if (!formData.name.trim() || !formData.phone.trim()) {
+      return
+    }
+
+    setIsSubmitting(true)
+
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    // Redirect to thank you page
+    router.push("/thank-you")
   }
 
   const OrderForm = () => (
@@ -55,6 +69,8 @@ export default function SuperPamyatLanding() {
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="pl-12 py-4 text-lg border-2 focus:border-blue-500"
+              required
+              disabled={isSubmitting}
             />
           </div>
           <div className="relative">
@@ -64,13 +80,17 @@ export default function SuperPamyatLanding() {
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               className="pl-12 py-4 text-lg border-2 focus:border-blue-500"
+              type="tel"
+              required
+              disabled={isSubmitting}
             />
           </div>
           <Button
             type="submit"
-            className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-4 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-4 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50"
+            disabled={isSubmitting}
           >
-            Ariza qoldiring
+            {isSubmitting ? "Yuborilmoqda..." : "Ariza qoldiring"}
           </Button>
         </form>
       </CardContent>
@@ -109,10 +129,11 @@ export default function SuperPamyatLanding() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-800 leading-tight">
-                Birinchi haftadanoq xotirani yaxshilaydi va miya faoliyatini qo’llaydi
+                Birinchi haftadanoq xotirani yaxshilaydi va miya faoliyatini qo'llaydi
               </h1>
               <p className="text-gray-700 text-xl lg:text-2xl leading-relaxed">
-                Miyada qon aylanishini tiklovachi,insult, infarni va yoshga doir o’zgarishlardan profilaktika qiliuvchi o’simliklardan tayyorlangan kompleks
+                Miyada qon aylanishini tiklovachi,insult, infarni va yoshga doir o'zgarishlardan profilaktika qiliuvchi
+                o'simliklardan tayyorlangan kompleks
               </p>
               <div className="pt-4">
                 <CountdownTimer />
@@ -151,7 +172,7 @@ export default function SuperPamyatLanding() {
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-16">
-            “Super xotira” sizning sog’lig’ingizga nima uchun foydali?
+            "Super xotira" sizning sog'lig'ingizga nima uchun foydali?
           </h2>
           <div className="grid sm:grid-cols-2 gap-6 lg:gap-8">
             <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -160,10 +181,12 @@ export default function SuperPamyatLanding() {
                   <div className="w-16 h-16 lg:w-20 lg:h-20 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <Brain className="h-8 w-8 lg:h-10 lg:w-10 text-blue-600" />
                   </div>
-                  <h3 className="text-xl lg:text-2xl font-semibold text-center sm:text-left">Miya faoliyatini yaxshilaydi</h3>
+                  <h3 className="text-xl lg:text-2xl font-semibold text-center sm:text-left">
+                    Miya faoliyatini yaxshilaydi
+                  </h3>
                 </div>
                 <p className="text-gray-600 text-lg text-center sm:text-left">
-                  Xotira zonalarini , fikrlash va e’tiborni aktivlashtiradi
+                  Xotira zonalarini , fikrlash va e'tiborni aktivlashtiradi
                 </p>
               </CardContent>
             </Card>
@@ -191,10 +214,12 @@ export default function SuperPamyatLanding() {
                     <Shield className="h-8 w-8 lg:h-10 lg:w-10 text-green-600" />
                   </div>
                   <h3 className="text-xl lg:text-2xl font-semibold text-center sm:text-left">
-                    Tromblar hosil bo‘lishining oldini oladi
+                    Tromblar hosil bo'lishining oldini oladi
                   </h3>
                 </div>
-                <p className="text-gray-600 text-lg text-center sm:text-left">Qonni suyultiradi, oquvchanligini yaxshilaydi</p>
+                <p className="text-gray-600 text-lg text-center sm:text-left">
+                  Qonni suyultiradi, oquvchanligini yaxshilaydi
+                </p>
               </CardContent>
             </Card>
 
@@ -204,7 +229,9 @@ export default function SuperPamyatLanding() {
                   <div className="w-16 h-16 lg:w-20 lg:h-20 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <Zap className="h-8 w-8 lg:h-10 lg:w-10 text-purple-600" />
                   </div>
-                  <h3 className="text-xl lg:text-2xl font-semibold text-center sm:text-left">Miya faoliyatini yaxshilaydi</h3>
+                  <h3 className="text-xl lg:text-2xl font-semibold text-center sm:text-left">
+                    Miya faoliyatini yaxshilaydi
+                  </h3>
                 </div>
                 <p className="text-gray-600 text-lg text-center sm:text-left">
                   Xotira, fikrlash va diqqat sohalarini faollashtiradi
@@ -221,12 +248,36 @@ export default function SuperPamyatLanding() {
           <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-16">Tarkib va xususiyatlari</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {[
-              { name: "Toloknyanka o‘ti", benefit: "Suyuqlikni yumshoq chiqarish orqali bosimni pasaytiradi. Qon filtratsiyasi va miya oziqlanishini yaxshilaydi" }, 
-              { name: "Do‘lana gullari", benefit: "Yurak urishi va miokardni qo‘llab-quvvatlash. Koronar va miya qon aylanishini yaxshilaydi. Taxikardiya xurujlari chastotasini kamaytiradi, tomirlar spazmini bartaraf etadi" },
-              { name: "Ginkgo biloba barglari", benefit: "Miyaga qon oqimini rag‘batlantiradi. Diqqat, fikrlash tezligi va qisqa muddatli xotirani yaxshilaydi. Antioksidant va tomirlarga qarshi (tromblarga qarshi) ta’sirga ega." },
-              { name: "Dalachoy o‘ti", benefit: "Yumshoq tabiiy antidepressant. Xavotirni kamaytiradi va hissiy muhitni yaxshilaydi. Diqqatni jamlashga va aqliy charchoq bilan kurashishga yordam beradi" },
-              { name: "Rozmarin o‘ti", benefit: "Miya faoliyati va diqqatni faollashtiradi. Idrokni o‘tkirlashtiradi va reaksiyani tezlashtiradi. Ko‘nikishsiz tabiiy nootrop ta’sir" },
-              { name: "Pushti radiola ildizi", benefit: "Adaptogen - miyaning stresslarga chidamliligini oshiradi. Hujayra quvvatini oshiradi. Miyani kislorod tanqisligidan himoya qiladi" },
+              {
+                name: "Toloknyanka o'ti",
+                benefit:
+                  "Suyuqlikni yumshoq chiqarish orqali bosimni pasaytiradi. Qon filtratsiyasi va miya oziqlanishini yaxshilaydi",
+              },
+              {
+                name: "Do'lana gullari",
+                benefit:
+                  "Yurak urishi va miokardni qo'llab-quvvatlash. Koronar va miya qon aylanishini yaxshilaydi. Taxikardiya xurujlari chastotasini kamaytiradi, tomirlar spazmini bartaraf etadi",
+              },
+              {
+                name: "Ginkgo biloba barglari",
+                benefit:
+                  "Miyaga qon oqimini rag'batlantiradi. Diqqat, fikrlash tezligi va qisqa muddatli xotirani yaxshilaydi. Antioksidant va tomirlarga qarshi (tromblarga qarshi) ta'sirga ega.",
+              },
+              {
+                name: "Dalachoy o'ti",
+                benefit:
+                  "Yumshoq tabiiy antidepressant. Xavotirni kamaytiradi va hissiy muhitni yaxshilaydi. Diqqatni jamlashga va aqliy charchoq bilan kurashishga yordam beradi",
+              },
+              {
+                name: "Rozmarin o'ti",
+                benefit:
+                  "Miya faoliyati va diqqatni faollashtiradi. Idrokni o'tkirlashtiradi va reaksiyani tezlashtiradi. Ko'nikishsiz tabiiy nootrop ta'sir",
+              },
+              {
+                name: "Pushti radiola ildizi",
+                benefit:
+                  "Adaptogen - miyaning stresslarga chidamliligini oshiradi. Hujayra quvvatini oshiradi. Miyani kislorod tanqisligidan himoya qiladi",
+              },
             ].map((ingredient, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
                 <CardContent className="p-6 lg:p-8">
@@ -245,15 +296,21 @@ export default function SuperPamyatLanding() {
       {/* Target Audience Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">‘’ Super xotira “ kimlar uchun</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">'' Super xotira " kimlar uchun</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: "Keksalarda", description: "xotira pasayganda, tez-tez bosh aylanishida, quloq shang‘illashida" },
+              {
+                title: "Keksalarda",
+                description: "xotira pasayganda, tez-tez bosh aylanishida, quloq shang'illashida",
+              },
               { title: "Yurak xuruji yoki insultni boshdan kechirganlarga", description: "tiklanish uchun" },
-              { title: "Gipertoniya bilan og‘rigan odamlar uchun", description: "qon bosimini normallashtirish" },
-              { title: "Aqliy mehnat bilan shug‘ullanuvchilar uchun", description: "aniqlik va diqqatni jamlash uchun" },
+              { title: "Gipertoniya bilan og'rigan odamlar uchun", description: "qon bosimini normallashtirish" },
+              {
+                title: "Aqliy mehnat bilan shug'ullanuvchilar uchun",
+                description: "aniqlik va diqqatni jamlash uchun",
+              },
               { title: "40 yoshdan oshgan barchaga", description: "qon tomir kasalliklarining oldini olish uchun" },
-              { title: "Bolalar va o‘smirlar uchun", description: "xotira va diqqatni yaxshilash uchun" },
+              { title: "Bolalar va o'smirlar uchun", description: "xotira va diqqatni yaxshilash uchun" },
             ].map((item, index) => (
               <Card key={index}>
                 <CardContent className="p-6 text-center">
@@ -300,19 +357,19 @@ export default function SuperPamyatLanding() {
             {[
               {
                 name: "Bahora - 68 yosh",
-                text: "3 haftalik qabuldan so‘ng kalitlarni qayerga qo‘yganimni yana eslay boshladim va boshimdagi shovqindan uyg‘onmay qo‘ydim. Bosim barqarorlashdi!",
+                text: "3 haftalik qabuldan so'ng kalitlarni qayerga qo'yganimni yana eslay boshladim va boshimdagi shovqindan uyg'onmay qo'ydim. Bosim barqarorlashdi!",
               },
               {
                 name: "Bekzod - 55 yoshda",
-                text: "Ko‘p yillardan beri gipertoniyaga chalinganman, buning ustiga IT sohasida ishlayman - kechga borib boshim aylanmay qoldi. Super xotira haqiqatan ham miyani jonlantirdi.",
+                text: "Ko'p yillardan beri gipertoniyaga chalinganman, buning ustiga IT sohasida ishlayman - kechga borib boshim aylanmay qoldi. Super xotira haqiqatan ham miyani jonlantirdi.",
               },
               {
                 name: "Gulnoza - 73 yoshda",
-                text: "Shifokor aytdi - xotira endi qaytib kelmaydi. Men esa kursdan o‘tdim va kitoblarni takrorlamasdan o‘qiyapman. Rahmat sizga!",
+                text: "Shifokor aytdi - xotira endi qaytib kelmaydi. Men esa kursdan o'tdim va kitoblarni takrorlamasdan o'qiyapman. Rahmat sizga!",
               },
               {
                 name: "Sherzod - 33 yosh",
-                text: "Otamga sotib oldim 75 yosh - ilgari ismlarni unutib qo‘yardim, suhbatlarda o‘zimni yo‘qotib qo‘yardim. Bir oydan keyin hazillashadigan, eski hikoyalarni eslaydigan, hatto krossvordlarni yechadigan bo‘lib qoldi.",
+                text: "Otamga sotib oldim 75 yosh - ilgari ismlarni unutib qo'yardim, suhbatlarda o'zimni yo'qotib qo'yardim. Bir oydan keyin hazillashadigan, eski hikoyalarni eslaydigan, hatto krossvordlarni yechadigan bo'lib qoldi.",
               },
             ].map((testimonial, index) => (
               <Card key={index} className="bg-white/80">
@@ -340,7 +397,7 @@ export default function SuperPamyatLanding() {
       <section className="py-16 bg-white">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-            Nima uchun “Super xotira” haqiqatdan ham yordam beradi
+            Nima uchun "Super xotira" haqiqatdan ham yordam beradi
           </h2>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -351,7 +408,7 @@ export default function SuperPamyatLanding() {
               <div className="flex items-center gap-4">
                 <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
                 <p className="text-gray-700">
-                  Xalqaro fitoterapiya assotsiatsiyalari tomonidan tasdiqlangan o‘simliklardan foydalaniladi.
+                  Xalqaro fitoterapiya assotsiatsiyalari tomonidan tasdiqlangan o'simliklardan foydalaniladi.
                 </p>
               </div>
               <div className="flex items-center gap-4">
@@ -363,7 +420,8 @@ export default function SuperPamyatLanding() {
                 <p className="text-gray-700">Formula nevrologlar va kardiologlar ishtirokida ishlab chiqilgan.</p>
               </div>
               <p className="text-gray-600 text-sm mt-6">
-                Formula yoshga bog‘liq kognitiv va qon tomir kasalliklarida samaradorligi isbotlangan o‘simlik ekstraktlarining klinik tadqiqotlari asosida ishlab chiqilgan.
+                Formula yoshga bog'liq kognitiv va qon tomir kasalliklarida samaradorligi isbotlangan o'simlik
+                ekstraktlarining klinik tadqiqotlari asosida ishlab chiqilgan.
               </p>
             </div>
             <div className="flex justify-center items-center gap-8">
@@ -389,7 +447,9 @@ export default function SuperPamyatLanding() {
       {/* Usage Conditions Section */}
       <section className="py-16 bg-gradient-to-br from-cyan-100 to-blue-100">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Qanday holatlarda qabul qilish tavsiya etiladi</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+            Qanday holatlarda qabul qilish tavsiya etiladi
+          </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { title: "Unutuvchanlik, parishonxotirlik, chalkash fikrlash", icon: "🧠" },
@@ -408,7 +468,6 @@ export default function SuperPamyatLanding() {
           </div>
         </div>
       </section>
-
 
       {/* Final CTA Section */}
       <section className="py-16 lg:py-24 bg-gradient-to-br from-sky-400 via-blue-400 to-cyan-300">
