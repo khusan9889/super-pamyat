@@ -29,6 +29,26 @@ export default function ThankYouPage() {
 
     return () => clearInterval(timer)
   }, [])
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.innerHTML = `
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1268744111322851');
+      fbq('track', 'Lead');
+      `
+    document.head.appendChild(script);
+
+    return () => {
+
+    }
+  }, [])
 
   const CountdownTimer = () => (
     <div className="flex flex-col sm:flex-row items-center gap-4 text-center">
@@ -55,71 +75,75 @@ export default function ThankYouPage() {
   )
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-400 via-blue-400 to-cyan-300">
-      {/* Success Section */}
-      <section className="py-16 lg:py-24 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 lg:p-12 mb-8">
-            <div className="w-24 h-24 bg-green-100 rounded-full mx-auto mb-6 flex items-center justify-center">
-              <CheckCircle className="h-12 w-12 text-green-600" />
-            </div>
-            <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
-              Rahmat! Arizangiz muvaffaqiyatli yuborildi
-            </h1>
-            <p className="text-xl text-gray-600 mb-8">
-              Bizning mutaxassislarimiz tez orada siz bilan bog'lanishadi va barcha savollaringizga javob berishadi.
-            </p>
+    <>
+      <noscript><img height="1" width="1" style={{ display: "none" }}
+        src="https://www.facebook.com/tr?id=1268744111322851&ev=PageView&noscript=1"
+      /></noscript>
+      <div className="min-h-screen bg-gradient-to-br from-sky-400 via-blue-400 to-cyan-300">
+        {/* Success Section */}
+        <section className="py-16 lg:py-24 px-4">
+          <div className="container mx-auto max-w-4xl text-center">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 lg:p-12 mb-8">
+              <div className="w-24 h-24 bg-green-100 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <CheckCircle className="h-12 w-12 text-green-600" />
+              </div>
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
+                Rahmat! Arizangiz muvaffaqiyatli yuborildi
+              </h1>
+              <p className="text-xl text-gray-600 mb-8">
+                Bizning mutaxassislarimiz tez orada siz bilan bog'lanishadi va barcha savollaringizga javob berishadi.
+              </p>
 
-            <div className="bg-gradient-to-r from-pink-50 to-blue-50 rounded-xl p-6 mb-8">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">Keyingi qadamlar:</h2>
-              <div className="grid md:grid-cols-2 gap-6 text-left">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                    1
+              <div className="bg-gradient-to-r from-pink-50 to-blue-50 rounded-xl p-6 mb-8">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-4">Keyingi qadamlar:</h2>
+                <div className="grid md:grid-cols-2 gap-6 text-left">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                      1
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800">Qo'ng'iroq kutib turing</h3>
+                      <p className="text-gray-600 text-sm">Bizning mutaxassis 15-30 daqiqa ichida siz bilan bog'lanadi</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-800">Qo'ng'iroq kutib turing</h3>
-                    <p className="text-gray-600 text-sm">Bizning mutaxassis 15-30 daqiqa ichida siz bilan bog'lanadi</p>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                      2
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800">Buyurtmani tasdiqlang</h3>
+                      <p className="text-gray-600 text-sm">Yetkazib berish manzili va to'lov usulini aniqlang</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                    2
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                      3
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800">Mahsulotni oling</h3>
+                      <p className="text-gray-600 text-sm">1-3 kun ichida mahsulot sizga yetkazib beriladi</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-800">Buyurtmani tasdiqlang</h3>
-                    <p className="text-gray-600 text-sm">Yetkazib berish manzili va to'lov usulini aniqlang</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                    3
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-800">Mahsulotni oling</h3>
-                    <p className="text-gray-600 text-sm">1-3 kun ichida mahsulot sizga yetkazib beriladi</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                    4
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-800">Qabul qilishni boshlang</h3>
-                    <p className="text-gray-600 text-sm">Ko'rsatmalarga rioya qiling va natijalarni kuzating</p>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                      4
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800">Qabul qilishni boshlang</h3>
+                      <p className="text-gray-600 text-sm">Ko'rsatmalarga rioya qiling va natijalarni kuzating</p>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              <div className="mb-8">
+                <CountdownTimer />
+                <p className="text-gray-600 mt-4">Chegirma vaqti tugashiga oz qoldi!</p>
+              </div>
             </div>
 
-            <div className="mb-8">
-              <CountdownTimer />
-              <p className="text-gray-600 mt-4">Chegirma vaqti tugashiga oz qoldi!</p>
-            </div>
-          </div>
-
-          {/* Contact Information */}
-          {/* <div className="grid md:grid-cols-3 gap-6 mb-8">
+            {/* Contact Information */}
+            {/* <div className="grid md:grid-cols-3 gap-6 mb-8">
             <Card className="bg-white/90">
               <CardContent className="p-6 text-center">
                 <Phone className="h-8 w-8 text-pink-500 mx-auto mb-3" />
@@ -143,38 +167,39 @@ export default function ThankYouPage() {
             </Card>
           </div> */}
 
-          {/* Benefits */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <Card className="bg-white/90">
-              <CardContent className="p-6 text-center">
-                <Truck className="h-8 w-8 text-green-500 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-800 mb-2">Bepul yetkazib berish</h3>
-                <p className="text-gray-600 text-sm">Butun Uzbekiston bo'ylab</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-white/90">
-              <CardContent className="p-6 text-center">
-                <Shield className="h-8 w-8 text-blue-500 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-800 mb-2">Sifat kafolati</h3>
-                <p className="text-gray-600 text-sm">100% original mahsulot</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-white/90">
-              <CardContent className="p-6 text-center">
-                <Gift className="h-8 w-8 text-purple-500 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-800 mb-2">Maxsus chegirma</h3>
-                <p className="text-gray-600 text-sm">Faqat bugun 50% chegirma</p>
-              </CardContent>
-            </Card>
-          </div>
+            {/* Benefits */}
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <Card className="bg-white/90">
+                <CardContent className="p-6 text-center">
+                  <Truck className="h-8 w-8 text-green-500 mx-auto mb-3" />
+                  <h3 className="font-semibold text-gray-800 mb-2">Bepul yetkazib berish</h3>
+                  <p className="text-gray-600 text-sm">Butun Uzbekiston bo'ylab</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-white/90">
+                <CardContent className="p-6 text-center">
+                  <Shield className="h-8 w-8 text-blue-500 mx-auto mb-3" />
+                  <h3 className="font-semibold text-gray-800 mb-2">Sifat kafolati</h3>
+                  <p className="text-gray-600 text-sm">100% original mahsulot</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-white/90">
+                <CardContent className="p-6 text-center">
+                  <Gift className="h-8 w-8 text-purple-500 mx-auto mb-3" />
+                  <h3 className="font-semibold text-gray-800 mb-2">Maxsus chegirma</h3>
+                  <p className="text-gray-600 text-sm">Faqat bugun 50% chegirma</p>
+                </CardContent>
+              </Card>
+            </div>
 
-          <Link href="/">
-            <Button className="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-8 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
-              Bosh sahifaga qaytish
-            </Button>
-          </Link>
-        </div>
-      </section>
-    </div>
+            <Link href="/">
+              <Button className="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-8 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                Bosh sahifaga qaytish
+              </Button>
+            </Link>
+          </div>
+        </section>
+      </div>
+    </>
   )
 }
