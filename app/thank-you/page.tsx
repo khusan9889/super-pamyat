@@ -119,7 +119,7 @@ export default function ThankYouPage() {
           </div>
 
           {/* Contact Information */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
+          {/* <div className="grid md:grid-cols-3 gap-6 mb-8">
             <Card className="bg-white/90">
               <CardContent className="p-6 text-center">
                 <Phone className="h-8 w-8 text-pink-500 mx-auto mb-3" />
@@ -141,7 +141,7 @@ export default function ThankYouPage() {
                 <p className="text-gray-600">Toshkent, Uzbekiston</p>
               </CardContent>
             </Card>
-          </div>
+          </div> */}
 
           {/* Benefits */}
           <div className="grid md:grid-cols-3 gap-6 mb-8">
