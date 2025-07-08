@@ -2,233 +2,17 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Phone, User, Clock, Star, CheckCircle, Shield, Heart, Brain, Zap } from "lucide-react"
+import { Phone, User, Star, CheckCircle, Shield, Heart, Brain, Zap } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { CountdownTimer } from "@/components/timer"
+import { OrderForm } from "@/components/order-form"
 
 export default function SuperPamyatLanding() {
-  const router = useRouter()
-  const [timeLeft, setTimeLeft] = useState({
-    hours: 7,
-    minutes: 5,
-    seconds: 34,
-  })
-
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-  })
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [errors, setErrors] = useState({
-    name: "",
-    phone: "",
-  })
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 }
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 }
-        } else if (prev.hours > 0) {
-          return { hours: prev.hours - 1, minutes: 59, seconds: 59 }
-        }
-        return prev
-      })
-    }, 1000)
-
-    return () => clearInterval(timer)
-  }, [])
-
-  const formatPhoneNumber = (value: string) => {
-    // Remove all non-digit characters except +
-    const cleaned = value.replace(/[^\d+]/g, "")
-
-    // If it doesn't start with +998, add it
-    let formatted = cleaned
-    if (!formatted.startsWith("+998")) {
-      if (formatted.startsWith("998")) {
-        formatted = "+" + formatted
-      } else if (formatted.startsWith("+")) {
-        formatted = "+998" + formatted.slice(1)
-      } else {
-        formatted = "+998" + formatted
-      }
-    }
-
-    // Limit to 13 characters (+998xxxxxxxxx)
-    formatted = formatted.slice(0, 13)
-
-    // Format as +998 (XX) XXX-XX-XX
-    if (formatted.length >= 4) {
-      const countryCode = formatted.slice(0, 4) // +998
-      const rest = formatted.slice(4)
-
-      if (rest.length >= 2) {
-        const areaCode = rest.slice(0, 2)
-        const remaining = rest.slice(2)
-
-        if (remaining.length >= 3) {
-          const firstPart = remaining.slice(0, 3)
-          const secondPart = remaining.slice(3, 5)
-          const thirdPart = remaining.slice(5, 7)
-
-          formatted = `${countryCode} (${areaCode}) ${firstPart}`
-          if (secondPart) formatted += `-${secondPart}`
-          if (thirdPart) formatted += `-${thirdPart}`
-        } else if (remaining.length > 0) {
-          formatted = `${countryCode} (${areaCode}) ${remaining}`
-        } else {
-          formatted = `${countryCode} (${areaCode})`
-        }
-      } else if (rest.length > 0) {
-        formatted = `${countryCode} (${rest}`
-      }
-    }
-
-    return formatted
-  }
-
-  const validateForm = () => {
-    const newErrors = {
-      name: "",
-      phone: "",
-    }
-
-    // Validate name
-    if (!formData.name.trim()) {
-      newErrors.name = "Ism kiritish majburiy"
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = "Ism kamida 2 ta belgidan iborat bo'lishi kerak"
-    }
-
-    // Validate phone
-    const phoneDigits = formData.phone.replace(/[^\d]/g, "")
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Telefon raqam kiritish majburiy"
-    } else if (phoneDigits.length < 12) {
-      newErrors.phone = "To'liq telefon raqam kiriting"
-    } else if (!formData.phone.startsWith("+998")) {
-      newErrors.phone = "Telefon raqam +998 bilan boshlanishi kerak"
-    }
-
-    setErrors(newErrors)
-    return !newErrors.name && !newErrors.phone
-  }
-
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    // Allow only letters, spaces, and common name characters
-    const filteredValue = value.replace(/[^a-zA-ZА-Яа-яЁёўғҳқ\s'-]/g, "")
-    setFormData({ ...formData, name: filteredValue })
-
-    // Clear error when user starts typing
-    if (errors.name) {
-      setErrors({ ...errors, name: "" })
-    }
-  }
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    const formatted = formatPhoneNumber(value)
-    setFormData({ ...formData, phone: formatted })
-
-    // Clear error when user starts typing
-    if (errors.phone) {
-      setErrors({ ...errors, phone: "" })
-    }
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (!validateForm()) {
-      return
-    }
-
-    setIsSubmitting(true)
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-
-    // Redirect to thank you page
-    router.push("/thank-you")
-  }
-
-  const OrderForm = () => (
-    <Card className="w-full max-w-sm bg-white/95 backdrop-blur-sm shadow-xl border-2 border-white/20">
-      <CardContent className="p-6 lg:p-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="relative">
-            <User className="absolute left-3 top-4 h-5 w-5 text-gray-400" />
-            <Input
-              placeholder="Isminigiz"
-              value={formData.name}
-              onChange={handleNameChange}
-              className={`pl-12 py-4 text-lg border-2 focus:border-blue-500 ${
-                errors.name ? "border-red-500 focus:border-red-500" : ""
-              }`}
-              disabled={isSubmitting}
-            />
-            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-          </div>
-          <div className="relative">
-            <Phone className="absolute left-3 top-4 h-5 w-5 text-gray-400" />
-            <Input
-              placeholder="+998 (XX) XXX-XX-XX"
-              value={formData.phone}
-              onChange={handlePhoneChange}
-              className={`pl-12 py-4 text-lg border-2 focus:border-blue-500 ${
-                errors.phone ? "border-red-500 focus:border-red-500" : ""
-              }`}
-              type="tel"
-              disabled={isSubmitting}
-            />
-            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-          </div>
-          <Button
-            type="submit"
-            className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-4 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Yuborilmoqda..." : "Ariza qoldiring"}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
-  )
-
-  const CountdownTimer = () => (
-    <div className="flex flex-col sm:flex-row items-center gap-4 text-center">
-      <Badge variant="destructive" className="text-lg lg:text-xl font-bold px-4 py-3">
-        50% CHEGIRMA
-      </Badge>
-      <div className="flex items-center gap-2">
-        <Clock className="h-6 w-6 text-orange-500" />
-        <div className="flex gap-2">
-          <div className="bg-white/90 px-3 py-2 rounded-lg text-2xl lg:text-3xl font-bold text-green-600 min-w-[50px]">
-            {timeLeft.hours.toString().padStart(2, "0")}
-          </div>
-          <span className="text-white font-bold text-2xl lg:text-3xl">:</span>
-          <div className="bg-white/90 px-3 py-2 rounded-lg text-2xl lg:text-3xl font-bold text-green-600 min-w-[50px]">
-            {timeLeft.minutes.toString().padStart(2, "0")}
-          </div>
-          <span className="text-white font-bold text-2xl lg:text-3xl">:</span>
-          <div className="bg-white/90 px-3 py-2 rounded-lg text-2xl lg:text-3xl font-bold text-green-600 min-w-[50px]">
-            {timeLeft.seconds.toString().padStart(2, "0")}
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-400 via-blue-400 to-cyan-300">
       {/* Hero Section */}
@@ -247,26 +31,15 @@ export default function SuperPamyatLanding() {
                 <CountdownTimer />
               </div>
             </div>
-            <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-12">
-              <div className="flex items-center gap-6">
-                <div className="relative transform hover:scale-105 transition-transform duration-300">
-                  <Image
-                    src="/placeholder.svg?height=250&width=150"
-                    alt="Super Pamyat bottle"
-                    width={150}
-                    height={250}
-                    className="drop-shadow-2xl"
-                  />
-                </div>
-                <div className="relative transform hover:scale-105 transition-transform duration-300">
-                  <Image
-                    src="/placeholder.svg?height=180&width=180"
-                    alt="Brain illustration"
-                    width={180}
-                    height={180}
-                    className="drop-shadow-lg"
-                  />
-                </div>
+            <div className="flex flex-col items-center gap-8 lg:gap-12">
+              <div className="relative -mb-4 transform hover:scale-105 transition-transform duration-300">
+                <Image
+                  src="/images/brain.png"
+                  alt="Brain illustration"
+                  width={180}
+                  height={180}
+                  className="drop-shadow-lg"
+                />
               </div>
               <div className="w-full lg:w-auto">
                 <OrderForm />
@@ -353,7 +126,9 @@ export default function SuperPamyatLanding() {
       {/* Ingredients Section */}
       <section className="py-16 lg:py-24 bg-gradient-to-br from-cyan-100 to-blue-100">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-16">Tarkib va xususiyatlari</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-16">
+            Tarkib va xususiyatlari
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {[
               {
@@ -390,7 +165,12 @@ export default function SuperPamyatLanding() {
               <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
                 <CardContent className="p-6 lg:p-8">
                   <div className="w-20 h-20 lg:w-24 lg:h-24 bg-white rounded-full mx-auto mb-6 flex items-center justify-center shadow-md">
-                    <Image src="/placeholder.svg?height=60&width=60" alt={ingredient.name} width={60} height={60} />
+                    <Image
+                      src={`/images/trava${index + 1}.png`}
+                      alt={ingredient.name}
+                      width={60}
+                      height={60}
+                    />
                   </div>
                   <h3 className="font-semibold text-lg lg:text-xl mb-3">{ingredient.name}</h3>
                   <p className="text-gray-600 text-sm lg:text-base">{ingredient.benefit}</p>
@@ -404,26 +184,46 @@ export default function SuperPamyatLanding() {
       {/* Target Audience Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">'' Super xotira " kimlar uchun</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+            "Super xotira" kimlar uchun
+          </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 title: "Keksalarda",
                 description: "xotira pasayganda, tez-tez bosh aylanishida, quloq shang'illashida",
               },
-              { title: "Yurak xuruji yoki insultni boshdan kechirganlarga", description: "tiklanish uchun" },
-              { title: "Gipertoniya bilan og'rigan odamlar uchun", description: "qon bosimini normallashtirish" },
+              {
+                title: "Yurak xuruji yoki insultni boshdan kechirganlarga",
+                description: "tiklanish uchun",
+              },
+              {
+                title: "Gipertoniya bilan og'rigan odamlar uchun",
+                description: "qon bosimini normallashtirish",
+              },
               {
                 title: "Aqliy mehnat bilan shug'ullanuvchilar uchun",
                 description: "aniqlik va diqqatni jamlash uchun",
               },
-              { title: "40 yoshdan oshgan barchaga", description: "qon tomir kasalliklarining oldini olish uchun" },
-              { title: "Bolalar va o'smirlar uchun", description: "xotira va diqqatni yaxshilash uchun" },
+              {
+                title: "40 yoshdan oshgan barchaga",
+                description: "qon tomir kasalliklarining oldini olish uchun",
+              },
+              {
+                title: "Bolalar va o'smirlar uchun",
+                description: "xotira va diqqatni yaxshilash uchun",
+              },
             ].map((item, index) => (
               <Card key={index}>
                 <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Image src="/placeholder.svg?height=40&width=40" alt={item.title} width={40} height={40} />
+                  <div className="mb-4">
+                    <Image
+                      src={`/images/chel${index + 1}.png`}
+                      alt={item.title}
+                      width={80}
+                      height={80}
+                      className="w-20 h-20 rounded-full object-cover mx-auto"
+                    />
                   </div>
                   <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
                   <p className="text-gray-600 text-sm">{item.description}</p>
@@ -443,7 +243,7 @@ export default function SuperPamyatLanding() {
             </div>
             <div className="relative order-2 lg:order-2">
               <Image
-                src="/placeholder.svg?height=250&width=150"
+                src="/images/bad.png"
                 alt="Super Pamyat bottle"
                 width={150}
                 height={250}
@@ -483,7 +283,13 @@ export default function SuperPamyatLanding() {
               <Card key={index} className="bg-white/80">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gray-300 rounded-full flex-shrink-0"></div>
+                    <Image
+                      src={`/images/otziv${index + 1}.png`}
+                      alt={testimonial.name}
+                      width={48}
+                      height={48}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
                     <div>
                       <h4 className="font-semibold text-lg mb-2">{testimonial.name}</h4>
                       <p className="text-gray-700 italic">"{testimonial.text}"</p>
@@ -534,18 +340,18 @@ export default function SuperPamyatLanding() {
             </div>
             <div className="flex justify-center items-center gap-8">
               <Image
-                src="/placeholder.svg?height=300&width=180"
+                src="/images/bad.png"
                 alt="Product with certificate"
                 width={180}
                 height={300}
-                className="drop-shadow-xl"
+                className="w-32 sm:w-40 lg:w-44 xl:w-48 drop-shadow-xl h-auto"
               />
               <Image
-                src="/placeholder.svg?height=400&width=300"
+                src="/images/license.png"
                 alt="Certificate"
                 width={300}
                 height={400}
-                className="drop-shadow-lg"
+                className="w-40 sm:w-52 lg:w-64 xl:w-72 drop-shadow-lg h-auto"
               />
             </div>
           </div>
@@ -586,7 +392,7 @@ export default function SuperPamyatLanding() {
             </div>
             <div className="relative order-2 lg:order-2">
               <Image
-                src="/placeholder.svg?height=250&width=150"
+                src="/images/bad.png"
                 alt="Super Pamyat bottle"
                 width={150}
                 height={250}
