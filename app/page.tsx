@@ -31,20 +31,38 @@ export default function SuperPamyatLanding() {
                 <CountdownTimer />
               </div>
             </div>
-            <div className="flex flex-col items-center gap-8 lg:gap-12">
-              <div className="relative -mb-4 transform hover:scale-105 transition-transform duration-300">
-                <Image
-                  src="/images/brain.png"
-                  alt="Brain illustration"
-                  width={180}
-                  height={180}
-                  className="drop-shadow-lg"
-                />
+
+            <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-12">
+              {/* Левая часть — только бутылка */}
+              <div className="flex items-center">
+                <div className="relative transform hover:scale-105 transition-transform duration-300">
+                  <Image
+                    src="/images/bad.png"
+                    alt="Super Pamyat bottle"
+                    width={150}
+                    height={250}
+                    className="drop-shadow-2xl"
+                  />
+                </div>
               </div>
-              <div className="w-full lg:w-auto">
-                <OrderForm />
+
+              {/* Правая часть — мозг + форма */}
+              <div className="flex flex-col items-center gap-4">
+                <div className="relative -mb-2 transform hover:scale-105 transition-transform duration-300">
+                  <Image
+                    src="/images/brain.png"
+                    alt="Brain illustration"
+                    width={180}
+                    height={180}
+                    className="drop-shadow-lg"
+                  />
+                </div>
+                <div className="w-full lg:w-auto max-w-md lg:max-w-lg bg-white p-6 lg:p-8 rounded-2xl shadow-xl">
+                  <OrderForm />
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
